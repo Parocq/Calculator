@@ -9,6 +9,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import static com.german.calculator.Polish.acceptProcents;
+import static com.german.calculator.Polish.addSpaces;
+import static com.german.calculator.Polish.calculateRPN;
+import static com.german.calculator.Polish.toRPN;
+
 public class MainActivity extends AppCompatActivity {
 
     Button button1, button2, button3,button4, button5, button6,
@@ -117,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.buttonDot:
                         answer.setText(beforeS + ".");
                         beforeS = answer.getText().toString();
+                        break;
                     case R.id.buttonDel:
                         if (beforeS.length()==0){ break;}
                         answer.setText(beforeS.substring(0,beforeS.length()-1));
@@ -132,7 +138,14 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.buttonEqual:
                         recentActions.setText(beforeS);
-                        answer.setText("Тут должен быть ответ");
+
+                        beforeS = acceptProcents(beforeS);
+
+                        beforeS = addSpaces(beforeS);
+                        beforeS = toRPN(beforeS);
+                        double solutionD = calculateRPN(beforeS);
+                        String solutionS = Double.toString(solutionD);
+                        answer.setText(solutionS);
                         beforeS = "";
                         break;
                 }
