@@ -20,4 +20,9 @@
     <string name="zero">0</string>
     <string name="procent">%</string>
     <string name="deleteAll">AC</string>
+    <string name="sin">sin</string>
+    <string name="cos">cos</string>
+    <string name="pow">^</string>
+    <string name="square">√</string>
+    <string name="factorial">!</string>
 </resources>
