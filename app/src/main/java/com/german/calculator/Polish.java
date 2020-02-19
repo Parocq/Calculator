@@ -4,23 +4,11 @@ import java.util.Stack;
 
 public class Polish {
 
-    public static String addSpaces (String s){
-        String newStr = "";
-        for (int i = 0; i<s.length(); i++){
-            if (getPriority(s.charAt(i)) != 0){
-                newStr = newStr + " " + s.charAt(i);
-            } else newStr += s.charAt(i);
-        }
-        return newStr;
-    }
-
-    public static String acceptProcents (String s){
-        s.replace("%","/100");
-        return s;
-    }
 
 
-    public static String toRPN (String s){
+
+
+    public String toRPN (String s){
 
         String str = "";
         Stack<Character> stack = new Stack<>();
@@ -59,7 +47,7 @@ public class Polish {
         return str;
     }
 
-    public static Double calculateRPN (String rpn){
+    public Double calculateRPN (String rpn){
         Stack<Double> stack = new Stack<>();
 
         for (int i=0;i<rpn.length();i++) {
@@ -92,7 +80,7 @@ public class Polish {
         return stack.peek();
     }
 
-    public static int getPriority (char symb){
+    public int getPriority (char symb){
         if (symb == '*' || symb == '/')  return 3;
         else if (symb == '+' || symb == '-') return 2;
         else if (symb == '(') return 1;

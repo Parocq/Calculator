@@ -25,4 +25,9 @@
     <string name="pow">^</string>
     <string name="square">√</string>
     <string name="factorial">!</string>
+    <string name="lclip">(</string>
+    <string name="rclip">)</string>
+    <string name="tg">tg</string>
+    <string name="ctg">catg</string>
+    <string name="history">History</string>
 </resources>

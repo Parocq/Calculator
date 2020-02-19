@@ -2,6 +2,7 @@ package com.german.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,28 +10,33 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import static com.german.calculator.Polish.acceptProcents;
-import static com.german.calculator.Polish.addSpaces;
-import static com.german.calculator.Polish.calculateRPN;
-import static com.german.calculator.Polish.toRPN;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button button1, button2, button3,button4, button5, button6,
-    button7, button8, button9, button0, buttonMultiplication,
-    buttonDev,buttonMinus, buttonPlus, buttonADel, buttonEqual,
-    buttonDot, buttonProcent;
+    Button button1, button2, button3, button4, button5, button6,
+            button7, button8, button9, button0, buttonMultiplication,
+            buttonDev, buttonMinus, buttonPlus, buttonADel, buttonEqual,
+            buttonDot, buttonProcent;
+
+    View.OnClickListener onClickListener;
 
     ImageButton buttonDel;
 
     TextView recentActions;
     EditText answer;
+    static String beforeS = "";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        final Preporator preporator = new Preporator();
+        final Polish polish = new Polish();
+        final ExpressionChecker exCheck = new ExpressionChecker();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
@@ -55,14 +61,12 @@ public class MainActivity extends AppCompatActivity {
         answer = findViewById(R.id.answer);
 
 
+        onClickListener = new View.OnClickListener() {
 
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-
-            String beforeS = "";
 
             @Override
             public void onClick(View v) {
-                switch (v.getId()){
+                switch (v.getId()) {
                     case R.id.button0:
                         answer.setText(beforeS + "0");
                         beforeS = answer.getText().toString();
@@ -124,8 +128,10 @@ public class MainActivity extends AppCompatActivity {
                         beforeS = answer.getText().toString();
                         break;
                     case R.id.buttonDel:
-                        if (beforeS.length()==0){ break;}
-                        answer.setText(beforeS.substring(0,beforeS.length()-1));
+                        if (beforeS.length() == 0) {
+                            break;
+                        }
+                        answer.setText(beforeS.substring(0, beforeS.length() - 1));
                         beforeS = answer.getText().toString();
                         break;
                     case R.id.buttonADel:
@@ -139,14 +145,30 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.buttonEqual:
                         recentActions.setText(beforeS);
 
-                        beforeS = acceptProcents(beforeS);
+                        if (beforeS == ""){
+                            answer.setText("???");
+                        } else {
+                            beforeS = exCheck.checkForAll(beforeS);
+                        }
 
-                        beforeS = addSpaces(beforeS);
-                        beforeS = toRPN(beforeS);
-                        double solutionD = calculateRPN(beforeS);
-                        String solutionS = Double.toString(solutionD);
-                        answer.setText(solutionS);
-                        beforeS = "";
+
+
+                        if (beforeS == ""){
+                            answer.setText("???");
+                        } else {
+//                        String solution = preporator.getAnswer(beforeS);
+//                        answer.setText(solution);
+
+                            beforeS = preporator.acceptProcents(beforeS);
+
+                            beforeS = preporator.addSpaces(beforeS);
+                            beforeS = polish.toRPN(beforeS);
+                            double solutionD = polish.calculateRPN(beforeS);
+                            String solutionS = Double.toString(solutionD);
+                            answer.setText(solutionS);
+                            beforeS = "";
+                        }
+
                         break;
                 }
 
@@ -174,5 +196,87 @@ public class MainActivity extends AppCompatActivity {
         buttonDel.setOnClickListener(onClickListener);
         buttonDot.setOnClickListener(onClickListener);
 
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            Button buttonLClip, buttonRClip, buttonPow, buttonSquare, buttonFactorial;
+            Button buttonTg, buttonCtg, buttonSin, buttonCos, buttonHistory;
+
+
+            buttonLClip = findViewById(R.id.buttonLClip);
+            buttonRClip = findViewById(R.id.buttonRClip);
+            buttonPow = findViewById(R.id.buttonPow);
+            buttonSquare = findViewById(R.id.buttonSquare);
+            buttonFactorial = findViewById(R.id.buttonFactorial);
+            buttonTg = findViewById(R.id.buttonTg);
+            buttonCtg = findViewById(R.id.buttonCtg);
+            buttonSin = findViewById(R.id.buttonSin);
+            buttonCos = findViewById(R.id.buttonCos);
+            buttonHistory = findViewById(R.id.buttonHistory);
+
+            onClickListener = new View.OnClickListener() {
+
+
+                @Override
+                public void onClick(View v) {
+                    switch (v.getId()) {
+                        case R.id.buttonLClip:
+                            answer.setText(beforeS + "(");
+                            beforeS = answer.getText().toString();
+                            break;
+                        case R.id.buttonRClip:
+                            answer.setText(beforeS + ")");
+                            beforeS = answer.getText().toString();
+                            break;
+                        case R.id.buttonPow:
+                            answer.setText(beforeS + "^");
+                            beforeS = answer.getText().toString();
+                            break;
+                        case R.id.buttonSquare:
+                            answer.setText(beforeS + "√");
+                            beforeS = answer.getText().toString();
+                            break;
+                        case R.id.buttonFactorial:
+                            answer.setText(beforeS + "!");
+                            beforeS = answer.getText().toString();
+                            break;
+                        case R.id.buttonTg:
+                            answer.setText(beforeS + "tg");
+                            beforeS = answer.getText().toString();
+                            break;
+                        case R.id.buttonCtg:
+                            answer.setText(beforeS + "ctg");
+                            beforeS = answer.getText().toString();
+                            break;
+                        case R.id.buttonSin:
+                            answer.setText(beforeS + "sin");
+                            beforeS = answer.getText().toString();
+                            break;
+                        case R.id.buttonCos:
+                            answer.setText(beforeS + "cos");
+                            beforeS = answer.getText().toString();
+                            break;
+                        case R.id.buttonHistory:
+
+
+                            break;
+                    }
+
+
+
+                }
+            };
+
+            buttonLClip.setOnClickListener(onClickListener);
+            buttonRClip.setOnClickListener(onClickListener);
+            buttonPow.setOnClickListener(onClickListener);
+            buttonSquare.setOnClickListener(onClickListener);
+            buttonFactorial.setOnClickListener(onClickListener);
+
+            buttonTg.setOnClickListener(onClickListener);
+            buttonCtg.setOnClickListener(onClickListener);
+            buttonSin.setOnClickListener(onClickListener);
+            buttonCos.setOnClickListener(onClickListener);
+            buttonHistory.setOnClickListener(onClickListener);
+        }
     }
 }

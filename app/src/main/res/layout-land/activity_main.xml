@@ -61,6 +61,11 @@
                 android:text="@string/dev"  />
 
             <Button
+                android:id="@+id/buttonLClip"
+                style="@style/NumbersLandscapeTheme"
+                android:text="@string/lclip"  />
+
+            <Button
                 android:id="@+id/buttonSin"
                 style="@style/NumbersLandscapeTheme"
                 android:text="@string/sin"  />
@@ -88,6 +93,11 @@
                 android:id="@+id/buttonMultiplication"
                 style="@style/NumbersLandscapeTheme"
                 android:text="@string/mult" />
+
+            <Button
+                android:id="@+id/buttonRClip"
+                style="@style/NumbersLandscapeTheme"
+                android:text="@string/rclip"  />
 
             <Button
                 android:id="@+id/buttonCos"
@@ -122,6 +132,12 @@
                 android:id="@+id/buttonPow"
                 style="@style/NumbersLandscapeTheme"
                 android:text="@string/pow"  />
+
+            <Button
+                android:id="@+id/buttonTg"
+                style="@style/NumbersLandscapeTheme"
+                android:text="@string/tg"  />
+
         </LinearLayout>
         <LinearLayout
             style="@style/LinearLayoutButtons">
@@ -150,6 +166,12 @@
                 android:id="@+id/buttonSquare"
                 style="@style/NumbersLandscapeTheme"
                 android:text="@string/square"  />
+
+            <Button
+                android:id="@+id/buttonCtg"
+                style="@style/NumbersLandscapeTheme"
+                android:text="@string/ctg"  />
+
         </LinearLayout>
 
         <LinearLayout
@@ -181,6 +203,12 @@
                 android:id="@+id/buttonFactorial"
                 style="@style/NumbersLandscapeTheme"
                 android:text="@string/factorial"  />
+
+            <Button
+                android:id="@+id/buttonHistory"
+                style="@style/NumbersLandscapeTheme"
+                android:text="@string/history"  />
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
