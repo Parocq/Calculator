@@ -2,6 +2,7 @@ package com.german.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,7 +28,11 @@ public class MainActivity extends AppCompatActivity {
     TextView recentActions;
     EditText answer;
     static String beforeS = "";
+    private static ArrayList<String> history = new ArrayList<>();
 
+    public ArrayList<String> getHistory() {
+        return history;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.buttonEqual:
                         recentActions.setText(beforeS);
+                        history.add(beforeS);
 
                         if (beforeS == ""){
                             answer.setText("???");
@@ -256,8 +264,8 @@ public class MainActivity extends AppCompatActivity {
                             beforeS = answer.getText().toString();
                             break;
                         case R.id.buttonHistory:
-
-
+                            Intent intent = new Intent(MainActivity.this, history.class);
+                            startActivity(intent);
                             break;
                     }
 

@@ -9,8 +9,11 @@ public class ExpressionChecker {
 
     public String checkForAll(String beforeS) {
         beforeS = checkDoubleSing(beforeS);
-        if (beforeS==""){return beforeS;};
+        if (beforeS==""){return beforeS;}
         beforeS = checkFirstChar(beforeS);
+        if (beforeS==""){return beforeS;}
+        beforeS = checkNumberOfBrackets(beforeS);
+
         return beforeS;
     }
 
@@ -19,6 +22,17 @@ public class ExpressionChecker {
             s= "0"+s;
         } else if (isSing(s.charAt(0))){ s="";}
         else return s;
+        return s;
+    }
+
+    String checkNumberOfBrackets (String s){
+        int l=0,r=0;
+
+        for (int i =0;i<s.length();i++){
+            if (s.charAt(i)== '('){l++;}
+            else if (s.charAt(i)== ')'){r++;}
+        }
+        if (l!=r)s="";
         return s;
     }
 
