@@ -18,9 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="left|center"
-            android:textSize="40sp">
+            android:textSize="40sp"
             android:scrollHorizontally="true"
-            android:scrollVertically="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="pushPrevious">
+
         </TextView>
 
     </LinearLayout>

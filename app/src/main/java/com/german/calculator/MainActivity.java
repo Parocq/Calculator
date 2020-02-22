@@ -24,18 +24,18 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button button1, button2, button3, button4, button5, button6,
+    private Button button1, button2, button3, button4, button5, button6,
             button7, button8, button9, button0, buttonMultiplication,
             buttonDev, buttonMinus, buttonPlus, buttonADel, buttonEqual,
             buttonDot, buttonProcent;
 
-    View.OnClickListener onClickListener;
+    private View.OnClickListener onClickListener;
 
-    ImageButton buttonDel;
+    private ImageButton buttonDel;
 
-    TextView recentActions,answer;
+    private TextView recentActions,answer;
 
-    static String beforeS = "";
+    private static String beforeS = "";
     private static ArrayList<String> history = new ArrayList<>();
 
     public ArrayList<String> getHistory() {
@@ -44,14 +44,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-
-        final Preporator preporator = new Preporator();
-        final Polish polish = new Polish();
-        final ExpressionChecker exCheck = new ExpressionChecker();
+//
+//        final Preporator preporator = new Preporator();
+//        final Polish polish = new Polish();
+//        final ExpressionChecker exCheck = new ExpressionChecker();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
@@ -164,11 +163,11 @@ public class MainActivity extends AppCompatActivity {
                         }else try {
                         recentActions.setText(beforeS);
                         history.add(beforeS);
-                        beforeS = "";
 
                         BigDecimal calc;
                         calc = new Expression(beforeS).eval();
                         answer.setText(calc.toString());
+                        beforeS = "";
                     } catch (Exception ex){
 //                            answer.setText("Произошла ошибка: недопустимое выражение");
                         AlertDialog.Builder inputError = new AlertDialog.Builder(MainActivity.this);
@@ -184,10 +183,6 @@ public class MainActivity extends AppCompatActivity {
                         alert.setTitle("Ошибка ввода");
                         alert.show();
                     }
-
-
-
-
 
 //                        if (beforeS == ""){
 //                            answer.setText("???");
@@ -319,5 +314,10 @@ public class MainActivity extends AppCompatActivity {
             buttonCos.setOnClickListener(onClickListener);
             buttonHistory.setOnClickListener(onClickListener);
         }
+    }
+
+    public void pushPrevious(View view) {
+        answer.setText(recentActions.getText());
+        beforeS = recentActions.getText().toString();
     }
 }
