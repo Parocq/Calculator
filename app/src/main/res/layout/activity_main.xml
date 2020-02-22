@@ -3,7 +3,10 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="@color/color4"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
 
 
     <LinearLayout
@@ -15,21 +18,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="right |center"
-            android:textSize="40sp"></TextView>
-    </LinearLayout>
+            android:textSize="40sp">
+            android:scrollHorizontally="true"
+            android:scrollVertically="true"
+        </TextView>
 
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color1">
+    </TextView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-        <EditText
+        android:layout_weight="1"
+        android:fadingEdge="horizontal"
+        >
+
+        <TextView
             android:id="@+id/answer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="right |center"
-            android:textSize="50sp"
-            ></EditText>
+            android:textSize="50sp"></TextView>
     </LinearLayout>
 
 
@@ -38,9 +51,11 @@
         android:layout_height="0dp"
         android:layout_weight="4"
         android:orientation="vertical"
+        android:background="@color/colorBlack"
         >
-        <LinearLayout
-            style="@style/LinearLayoutButtons">
+
+        <LinearLayout style="@style/LinearLayoutButtons">
+
             <Button
                 android:id="@+id/button1"
                 style="@style/NumbersTheme"
@@ -49,7 +64,7 @@
             <Button
                 android:id="@+id/button2"
                 style="@style/NumbersTheme"
-                android:text="@string/two"/>
+                android:text="@string/two" />
 
             <Button
                 android:id="@+id/button3"
@@ -59,7 +74,7 @@
             <Button
                 android:id="@+id/buttonDev"
                 style="@style/NumbersTheme"
-                android:text="@string/dev"  />
+                android:text="@string/dev" />
         </LinearLayout>
         <LinearLayout
             style="@style/LinearLayoutButtons">
@@ -154,6 +169,7 @@
                 android:layout_height="match_parent"
                 android:layout_width="0dp"
                 android:layout_weight="2"
+                android:background="@color/color6"
                 android:textSize="60dp"
                 android:text="@string/equal" />
         </LinearLayout>

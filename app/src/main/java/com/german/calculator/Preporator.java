@@ -1,5 +1,7 @@
 package com.german.calculator;
 
+import com.german.calculator.MyCalc.Polish;
+
 public class Preporator {
 
     Polish polish = new Polish();

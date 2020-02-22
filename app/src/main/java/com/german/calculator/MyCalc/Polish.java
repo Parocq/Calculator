@@ -1,4 +1,4 @@
-package com.german.calculator;
+package com.german.calculator.MyCalc;
 
 import java.util.Stack;
 

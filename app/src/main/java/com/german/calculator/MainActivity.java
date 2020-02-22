@@ -1,15 +1,23 @@
 package com.german.calculator;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.german.calculator.MyCalc.ExpressionChecker;
+import com.german.calculator.MyCalc.Polish;
+import com.udojava.evalex.Expression;
+
+import java.math.BigDecimal;
 
 import java.util.ArrayList;
 
@@ -25,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
     ImageButton buttonDel;
 
-    TextView recentActions;
-    EditText answer;
+    TextView recentActions,answer;
+
     static String beforeS = "";
     private static ArrayList<String> history = new ArrayList<>();
 
@@ -35,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
 
         final Preporator preporator = new Preporator();
         final Polish polish = new Polish();
@@ -43,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
@@ -150,32 +159,53 @@ public class MainActivity extends AppCompatActivity {
                         beforeS = answer.getText().toString();
                         break;
                     case R.id.buttonEqual:
-                        recentActions.setText(beforeS);
-                        history.add(beforeS);
+                        try {
+                            recentActions.setText(beforeS);
+                            history.add(beforeS);
 
-                        if (beforeS == ""){
-                            answer.setText("???");
-                        } else {
-                            beforeS = exCheck.checkForAll(beforeS);
-                        }
-
-
-
-                        if (beforeS == ""){
-                            answer.setText("???");
-                        } else {
-//                        String solution = preporator.getAnswer(beforeS);
-//                        answer.setText(solution);
-
-                            beforeS = preporator.acceptProcents(beforeS);
-
-                            beforeS = preporator.addSpaces(beforeS);
-                            beforeS = polish.toRPN(beforeS);
-                            double solutionD = polish.calculateRPN(beforeS);
-                            String solutionS = Double.toString(solutionD);
-                            answer.setText(solutionS);
+                            BigDecimal calc;
+                            calc = new Expression(beforeS).eval();
+                            answer.setText(calc.toString());
                             beforeS = "";
+                        } catch (Exception ex){
+//                            answer.setText("Произошла ошибка: недопустимое выражение");
+                            AlertDialog.Builder inputError = new AlertDialog.Builder(MainActivity.this);
+                            inputError.setMessage("Было введено необрабатываемое выражение, проверьте правильность ввода.")
+                                    .setCancelable(false)
+                                    .setNegativeButton("ОК",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    dialog.cancel();
+                                                }});
+
+                            AlertDialog alert = inputError.create();
+                            alert.setTitle("Ошибка ввода");
+                            alert.show();
                         }
+
+
+
+
+//                        if (beforeS == ""){
+//                            answer.setText("???");
+//                        } else {
+//                            beforeS = exCheck.checkForAll(beforeS);
+//                        }
+//                        if (beforeS == ""){
+//                            answer.setText("???");
+//                        } else {
+////                        String solution = preporator.getAnswer(beforeS);
+////                        answer.setText(solution);
+//
+//                            beforeS = preporator.acceptProcents(beforeS);
+//
+//                            beforeS = preporator.addSpaces(beforeS);
+//                            beforeS = polish.toRPN(beforeS);
+//                            double solutionD = polish.calculateRPN(beforeS);
+//                            String solutionS = Double.toString(solutionD);
+//                            answer.setText(solutionS);
+//                            beforeS = "";
+//                        }
 
                         break;
                 }
@@ -207,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
             Button buttonLClip, buttonRClip, buttonPow, buttonSquare, buttonFactorial;
-            Button buttonTg, buttonCtg, buttonSin, buttonCos, buttonHistory;
+            Button buttonTg, buttonLog, buttonSin, buttonCos, buttonHistory;
 
 
             buttonLClip = findViewById(R.id.buttonLClip);
@@ -216,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
             buttonSquare = findViewById(R.id.buttonSquare);
             buttonFactorial = findViewById(R.id.buttonFactorial);
             buttonTg = findViewById(R.id.buttonTg);
-            buttonCtg = findViewById(R.id.buttonCtg);
+            buttonLog = findViewById(R.id.buttonLog);
             buttonSin = findViewById(R.id.buttonSin);
             buttonCos = findViewById(R.id.buttonCos);
             buttonHistory = findViewById(R.id.buttonHistory);
@@ -248,19 +278,19 @@ public class MainActivity extends AppCompatActivity {
                             beforeS = answer.getText().toString();
                             break;
                         case R.id.buttonTg:
-                            answer.setText(beforeS + "tg");
+                            answer.setText(beforeS + "tan(");
                             beforeS = answer.getText().toString();
                             break;
-                        case R.id.buttonCtg:
-                            answer.setText(beforeS + "ctg");
+                        case R.id.buttonLog:
+                            answer.setText(beforeS + "log(");
                             beforeS = answer.getText().toString();
                             break;
                         case R.id.buttonSin:
-                            answer.setText(beforeS + "sin");
+                            answer.setText(beforeS + "sin(");
                             beforeS = answer.getText().toString();
                             break;
                         case R.id.buttonCos:
-                            answer.setText(beforeS + "cos");
+                            answer.setText(beforeS + "cos(");
                             beforeS = answer.getText().toString();
                             break;
                         case R.id.buttonHistory:
@@ -281,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
             buttonFactorial.setOnClickListener(onClickListener);
 
             buttonTg.setOnClickListener(onClickListener);
-            buttonCtg.setOnClickListener(onClickListener);
+            buttonLog.setOnClickListener(onClickListener);
             buttonSin.setOnClickListener(onClickListener);
             buttonCos.setOnClickListener(onClickListener);
             buttonHistory.setOnClickListener(onClickListener);
