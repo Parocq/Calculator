@@ -23,11 +23,12 @@
     <string name="sin">sin</string>
     <string name="cos">cos</string>
     <string name="pow">^</string>
-    <string name="square">√</string>
+    <string name="pi">pi</string>
     <string name="factorial">!</string>
     <string name="lclip">(</string>
     <string name="rclip">)</string>
     <string name="tg">tg</string>
     <string name="history">History</string>
     <string name="log">log</string>
+    <string name="e">e</string>
 </resources>

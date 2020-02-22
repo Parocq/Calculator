@@ -1,9 +1,5 @@
 package com.german.calculator.MyCalc;
 
-import android.widget.TextView;
-
-import com.german.calculator.Preporator;
-
 public class ExpressionChecker {
 
     private Preporator pr = new Preporator();

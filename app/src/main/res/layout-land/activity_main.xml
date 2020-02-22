@@ -13,7 +13,7 @@
             android:id="@+id/recentActions"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="right |center"
+            android:gravity="left|center"
             android:textSize="25sp"></TextView>
     </LinearLayout>
 
@@ -28,13 +28,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <TextView
             android:id="@+id/answer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="right |center"
+            android:gravity="left|center"
             android:textSize="30sp"
             ></TextView>
+        </HorizontalScrollView>
     </LinearLayout>
 
 
@@ -65,12 +69,7 @@
             <Button
                 android:id="@+id/buttonDev"
                 style="@style/NumbersLandscapeTheme"
-                android:backgroundTintMode="add"
-                android:duplicateParentState="false"
-                android:editable="false"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/dev"
-                android:textAppearance="@style/NumbersLandscapeTheme" />
+                android:text="@string/dev" />
 
             <Button
                 android:id="@+id/buttonLClip"
@@ -175,9 +174,9 @@
                 android:text="@string/plus" />
 
             <Button
-                android:id="@+id/buttonSquare"
+                android:id="@+id/buttonE"
                 style="@style/NumbersLandscapeTheme"
-                android:text="@string/square"  />
+                android:text="@string/e" />
 
             <Button
                 android:id="@+id/buttonLog"
@@ -213,9 +212,9 @@
                 android:text="@string/equal" />
 
             <Button
-                android:id="@+id/buttonFactorial"
+                android:id="@+id/buttonPi"
                 style="@style/NumbersLandscapeTheme"
-                android:text="@string/factorial"  />
+                android:text="@string/pi"  />
 
             <Button
                 android:id="@+id/buttonHistory"

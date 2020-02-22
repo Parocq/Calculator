@@ -17,7 +17,7 @@
             android:id="@+id/recentActions"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="right |center"
+            android:gravity="left|center"
             android:textSize="40sp">
             android:scrollHorizontally="true"
             android:scrollVertically="true"
@@ -36,13 +36,18 @@
         android:layout_weight="1"
         android:fadingEdge="horizontal"
         >
-
-        <TextView
-            android:id="@+id/answer"
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="right |center"
-            android:textSize="50sp"></TextView>
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/answer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left|center"
+                android:textSize="50sp"></TextView>
+        </HorizontalScrollView>
+
+
     </LinearLayout>
 
 

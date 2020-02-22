@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 
 import com.german.calculator.MyCalc.ExpressionChecker;
 import com.german.calculator.MyCalc.Polish;
+import com.german.calculator.MyCalc.Preporator;
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
@@ -236,15 +236,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
-            Button buttonLClip, buttonRClip, buttonPow, buttonSquare, buttonFactorial;
+            Button buttonLClip, buttonRClip, buttonPow, buttonE, buttonPi;
             Button buttonTg, buttonLog, buttonSin, buttonCos, buttonHistory;
 
 
             buttonLClip = findViewById(R.id.buttonLClip);
             buttonRClip = findViewById(R.id.buttonRClip);
             buttonPow = findViewById(R.id.buttonPow);
-            buttonSquare = findViewById(R.id.buttonSquare);
-            buttonFactorial = findViewById(R.id.buttonFactorial);
+            buttonE = findViewById(R.id.buttonE);
+            buttonPi = findViewById(R.id.buttonPi);
             buttonTg = findViewById(R.id.buttonTg);
             buttonLog = findViewById(R.id.buttonLog);
             buttonSin = findViewById(R.id.buttonSin);
@@ -269,12 +269,12 @@ public class MainActivity extends AppCompatActivity {
                             answer.setText(beforeS + "^");
                             beforeS = answer.getText().toString();
                             break;
-                        case R.id.buttonSquare:
-                            answer.setText(beforeS + "√");
+                        case R.id.buttonE:
+                            answer.setText(beforeS + "e");
                             beforeS = answer.getText().toString();
                             break;
-                        case R.id.buttonFactorial:
-                            answer.setText(beforeS + "!");
+                        case R.id.buttonPi:
+                            answer.setText(beforeS + "pi");
                             beforeS = answer.getText().toString();
                             break;
                         case R.id.buttonTg:
@@ -307,8 +307,8 @@ public class MainActivity extends AppCompatActivity {
             buttonLClip.setOnClickListener(onClickListener);
             buttonRClip.setOnClickListener(onClickListener);
             buttonPow.setOnClickListener(onClickListener);
-            buttonSquare.setOnClickListener(onClickListener);
-            buttonFactorial.setOnClickListener(onClickListener);
+            buttonE.setOnClickListener(onClickListener);
+            buttonPi.setOnClickListener(onClickListener);
 
             buttonTg.setOnClickListener(onClickListener);
             buttonLog.setOnClickListener(onClickListener);
