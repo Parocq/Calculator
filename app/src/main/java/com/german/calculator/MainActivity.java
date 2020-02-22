@@ -159,29 +159,32 @@ public class MainActivity extends AppCompatActivity {
                         beforeS = answer.getText().toString();
                         break;
                     case R.id.buttonEqual:
-                        try {
-                            recentActions.setText(beforeS);
-                            history.add(beforeS);
+                        if (beforeS == ""){
 
-                            BigDecimal calc;
-                            calc = new Expression(beforeS).eval();
-                            answer.setText(calc.toString());
-                            beforeS = "";
-                        } catch (Exception ex){
+                        }else try {
+                        recentActions.setText(beforeS);
+                        history.add(beforeS);
+                        beforeS = "";
+
+                        BigDecimal calc;
+                        calc = new Expression(beforeS).eval();
+                        answer.setText(calc.toString());
+                    } catch (Exception ex){
 //                            answer.setText("Произошла ошибка: недопустимое выражение");
-                            AlertDialog.Builder inputError = new AlertDialog.Builder(MainActivity.this);
-                            inputError.setMessage("Было введено необрабатываемое выражение, проверьте правильность ввода.")
-                                    .setCancelable(false)
-                                    .setNegativeButton("ОК",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int id) {
-                                                    dialog.cancel();
-                                                }});
+                        AlertDialog.Builder inputError = new AlertDialog.Builder(MainActivity.this);
+                        inputError.setMessage("Было введено необрабатываемое выражение, проверьте правильность ввода.")
+                                .setCancelable(false)
+                                .setNegativeButton("ОК",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }});
 
-                            AlertDialog alert = inputError.create();
-                            alert.setTitle("Ошибка ввода");
-                            alert.show();
-                        }
+                        AlertDialog alert = inputError.create();
+                        alert.setTitle("Ошибка ввода");
+                        alert.show();
+                    }
+
 
 
 
