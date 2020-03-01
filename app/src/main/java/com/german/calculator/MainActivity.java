@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         recentActions = findViewById(R.id.recentActions);
         answer = findViewById(R.id.answer);
-
+        answer.setText(beforeS);
 
         onClickListener = new View.OnClickListener() {
 
@@ -233,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
         buttonDot.setOnClickListener(onClickListener);
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            answer.setText(beforeS);
 
             Button buttonLClip, buttonRClip, buttonPow, buttonE, buttonPi;
             Button buttonTg, buttonLog, buttonSin, buttonCos, buttonHistory;
