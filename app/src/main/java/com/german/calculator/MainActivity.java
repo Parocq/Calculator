@@ -12,13 +12,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.german.calculator.MyCalc.ExpressionChecker;
-import com.german.calculator.MyCalc.Polish;
-import com.german.calculator.MyCalc.Preporator;
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
 
+import java.math.MathContext;
 import java.util.ArrayList;
 
 
@@ -28,8 +26,9 @@ public class MainActivity extends AppCompatActivity {
             button7, button8, button9, button0, buttonMultiplication,
             buttonDev, buttonMinus, buttonPlus, buttonADel, buttonEqual,
             buttonDot, buttonProcent;
+    private Button buttonLClip, buttonRClip, buttonPow, buttonE, buttonPi;
+    private Button buttonTg, buttonLog, buttonSin, buttonCos, buttonHistory;
 
-    private View.OnClickListener onClickListener;
 
     private ImageButton buttonDel;
 
@@ -44,13 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-//
-//        final Preporator preporator = new Preporator();
-//        final Polish polish = new Polish();
-//        final ExpressionChecker exCheck = new ExpressionChecker();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
@@ -74,247 +70,178 @@ public class MainActivity extends AppCompatActivity {
 
         recentActions = findViewById(R.id.recentActions);
         answer = findViewById(R.id.answer);
+
+        buttonLClip = findViewById(R.id.buttonLClip);
+        buttonRClip = findViewById(R.id.buttonRClip);
+        buttonPow = findViewById(R.id.buttonPow);
+        buttonE = findViewById(R.id.buttonE);
+        buttonPi = findViewById(R.id.buttonPi);
+        buttonTg = findViewById(R.id.buttonTg);
+        buttonLog = findViewById(R.id.buttonLog);
+        buttonSin = findViewById(R.id.buttonSin);
+        buttonCos = findViewById(R.id.buttonCos);
+        buttonHistory = findViewById(R.id.buttonHistory);
+
         answer.setText(beforeS);
-
-        onClickListener = new View.OnClickListener() {
-
-
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.button0:
-                        answer.setText(beforeS + "0");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.button1:
-                        answer.setText(beforeS + "1");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.button2:
-                        answer.setText(beforeS + "2");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.button3:
-                        answer.setText(beforeS + "3");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.button4:
-                        answer.setText(beforeS + "4");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.button5:
-                        answer.setText(beforeS + "5");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.button6:
-                        answer.setText(beforeS + "6");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.button7:
-                        answer.setText(beforeS + "7");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.button8:
-                        answer.setText(beforeS + "8");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.button9:
-                        answer.setText(beforeS + "9");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.buttonMultiplication:
-                        answer.setText(beforeS + "*");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.buttonMinus:
-                        answer.setText(beforeS + "-");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.buttonDev:
-                        answer.setText(beforeS + "/");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.buttonPlus:
-                        answer.setText(beforeS + "+");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.buttonDot:
-                        answer.setText(beforeS + ".");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.buttonDel:
-                        if (beforeS.length() == 0) {
-                            break;
-                        }
-                        answer.setText(beforeS.substring(0, beforeS.length() - 1));
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.buttonADel:
-                        answer.setText("");
-                        beforeS = "";
-                        break;
-                    case R.id.buttonProcent:
-                        answer.setText(beforeS + "%");
-                        beforeS = answer.getText().toString();
-                        break;
-                    case R.id.buttonEqual:
-                        if (beforeS == ""){
-
-                        }else try {
-                        recentActions.setText(beforeS);
-                        history.add(beforeS);
-
-                        BigDecimal calc;
-                        calc = new Expression(beforeS).eval();
-                        answer.setText(calc.toString());
-                        beforeS = "";
-                    } catch (Exception ex){
-//                            answer.setText("Произошла ошибка: недопустимое выражение");
-                        AlertDialog.Builder inputError = new AlertDialog.Builder(MainActivity.this);
-                        inputError.setMessage("Было введено необрабатываемое выражение, проверьте правильность ввода.")
-                                .setCancelable(false)
-                                .setNegativeButton("ОК",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                dialog.cancel();
-                                            }});
-
-                        AlertDialog alert = inputError.create();
-                        alert.setTitle("Ошибка ввода");
-                        alert.show();
-                    }
-
-//                        if (beforeS == ""){
-//                            answer.setText("???");
-//                        } else {
-//                            beforeS = exCheck.checkForAll(beforeS);
-//                        }
-//                        if (beforeS == ""){
-//                            answer.setText("???");
-//                        } else {
-////                        String solution = preporator.getAnswer(beforeS);
-////                        answer.setText(solution);
-//
-//                            beforeS = preporator.acceptProcents(beforeS);
-//
-//                            beforeS = preporator.addSpaces(beforeS);
-//                            beforeS = polish.toRPN(beforeS);
-//                            double solutionD = polish.calculateRPN(beforeS);
-//                            String solutionS = Double.toString(solutionD);
-//                            answer.setText(solutionS);
-//                            beforeS = "";
-//                        }
-
-                        break;
-                }
-
-            }
         };
 
-
-        button1.setOnClickListener(onClickListener);
-        button2.setOnClickListener(onClickListener);
-        button3.setOnClickListener(onClickListener);
-        button4.setOnClickListener(onClickListener);
-        button5.setOnClickListener(onClickListener);
-        button6.setOnClickListener(onClickListener);
-        button7.setOnClickListener(onClickListener);
-        button8.setOnClickListener(onClickListener);
-        button9.setOnClickListener(onClickListener);
-        button0.setOnClickListener(onClickListener);
-        buttonMinus.setOnClickListener(onClickListener);
-        buttonMultiplication.setOnClickListener(onClickListener);
-        buttonPlus.setOnClickListener(onClickListener);
-        buttonDev.setOnClickListener(onClickListener);
-        buttonProcent.setOnClickListener(onClickListener);
-        buttonEqual.setOnClickListener(onClickListener);
-        buttonADel.setOnClickListener(onClickListener);
-        buttonDel.setOnClickListener(onClickListener);
-        buttonDot.setOnClickListener(onClickListener);
-
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            answer.setText(beforeS);
-
-            Button buttonLClip, buttonRClip, buttonPow, buttonE, buttonPi;
-            Button buttonTg, buttonLog, buttonSin, buttonCos, buttonHistory;
-
-
-            buttonLClip = findViewById(R.id.buttonLClip);
-            buttonRClip = findViewById(R.id.buttonRClip);
-            buttonPow = findViewById(R.id.buttonPow);
-            buttonE = findViewById(R.id.buttonE);
-            buttonPi = findViewById(R.id.buttonPi);
-            buttonTg = findViewById(R.id.buttonTg);
-            buttonLog = findViewById(R.id.buttonLog);
-            buttonSin = findViewById(R.id.buttonSin);
-            buttonCos = findViewById(R.id.buttonCos);
-            buttonHistory = findViewById(R.id.buttonHistory);
-
-            onClickListener = new View.OnClickListener() {
-
-
-                @Override
-                public void onClick(View v) {
-                    switch (v.getId()) {
-                        case R.id.buttonLClip:
-                            answer.setText(beforeS + "(");
-                            beforeS = answer.getText().toString();
-                            break;
-                        case R.id.buttonRClip:
-                            answer.setText(beforeS + ")");
-                            beforeS = answer.getText().toString();
-                            break;
-                        case R.id.buttonPow:
-                            answer.setText(beforeS + "^");
-                            beforeS = answer.getText().toString();
-                            break;
-                        case R.id.buttonE:
-                            answer.setText(beforeS + "e");
-                            beforeS = answer.getText().toString();
-                            break;
-                        case R.id.buttonPi:
-                            answer.setText(beforeS + "pi");
-                            beforeS = answer.getText().toString();
-                            break;
-                        case R.id.buttonTg:
-                            answer.setText(beforeS + "tan(");
-                            beforeS = answer.getText().toString();
-                            break;
-                        case R.id.buttonLog:
-                            answer.setText(beforeS + "log(");
-                            beforeS = answer.getText().toString();
-                            break;
-                        case R.id.buttonSin:
-                            answer.setText(beforeS + "sin(");
-                            beforeS = answer.getText().toString();
-                            break;
-                        case R.id.buttonCos:
-                            answer.setText(beforeS + "cos(");
-                            beforeS = answer.getText().toString();
-                            break;
-                        case R.id.buttonHistory:
-                            Intent intent = new Intent(MainActivity.this, history.class);
-                            startActivity(intent);
-                            break;
-                    }
-
-
-
+    public void onButtonClick(View v) {
+        switch (v.getId()) {
+            case R.id.button0:
+                answer.setText(beforeS + "0");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.button1:
+                answer.setText(beforeS + "1");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.button2:
+                answer.setText(beforeS + "2");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.button3:
+                answer.setText(beforeS + "3");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.button4:
+                answer.setText(beforeS + "4");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.button5:
+                answer.setText(beforeS + "5");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.button6:
+                answer.setText(beforeS + "6");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.button7:
+                answer.setText(beforeS + "7");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.button8:
+                answer.setText(beforeS + "8");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.button9:
+                answer.setText(beforeS + "9");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonMultiplication:
+                answer.setText(beforeS + "*");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonMinus:
+                answer.setText(beforeS + "-");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonDev:
+                answer.setText(beforeS + "/");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonPlus:
+                answer.setText(beforeS + "+");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonDot:
+                answer.setText(beforeS + ".");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonDel:
+                if (beforeS.length() == 0) {
+                    break;
                 }
-            };
+                answer.setText(beforeS.substring(0, beforeS.length() - 1));
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonADel:
+                answer.setText("");
+                beforeS = "";
+                break;
+            case R.id.buttonProcent:
+                answer.setText(beforeS + "%");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonEqual:
+                if (beforeS == ""){
 
-            buttonLClip.setOnClickListener(onClickListener);
-            buttonRClip.setOnClickListener(onClickListener);
-            buttonPow.setOnClickListener(onClickListener);
-            buttonE.setOnClickListener(onClickListener);
-            buttonPi.setOnClickListener(onClickListener);
+                }else try {
+                    recentActions.setText(beforeS);
+                    history.add(beforeS);
 
-            buttonTg.setOnClickListener(onClickListener);
-            buttonLog.setOnClickListener(onClickListener);
-            buttonSin.setOnClickListener(onClickListener);
-            buttonCos.setOnClickListener(onClickListener);
-            buttonHistory.setOnClickListener(onClickListener);
+                    BigDecimal calc = new Expression(beforeS, new MathContext(6)).eval();
+                    answer.setText(calc.toString());
+                    beforeS = "";
+                } catch (Expression.ExpressionException e){
+                    AlertDialog.Builder inputError = new AlertDialog.Builder(MainActivity.this);
+                    inputError.setMessage("ExpressionException")
+                            .setCancelable(false)
+                            .setNegativeButton("ОК",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }});
+
+                    AlertDialog alert = inputError.create();
+                    alert.setTitle("Ошибка ввода");
+                    alert.show();
+                } catch (Exception e){
+                    AlertDialog.Builder inputError = new AlertDialog.Builder(MainActivity.this);
+                    inputError.setMessage("Было введено необрабатываемое выражение, проверьте правильность ввода.")
+                            .setCancelable(false)
+                            .setNegativeButton("ОК",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }});
+
+                    AlertDialog alert = inputError.create();
+                    alert.setTitle("Ошибка ввода");
+                    alert.show();
+                }
+                break;
+            case R.id.buttonLClip:
+                answer.setText(beforeS + "(");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonRClip:
+                answer.setText(beforeS + ")");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonPow:
+                answer.setText(beforeS + "^");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonE:
+                answer.setText(beforeS + "e");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonPi:
+                answer.setText(beforeS + "pi");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonTg:
+                answer.setText(beforeS + "tan(");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonLog:
+                answer.setText(beforeS + "log(");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonSin:
+                answer.setText(beforeS + "sin(");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonCos:
+                answer.setText(beforeS + "cos(");
+                beforeS = answer.getText().toString();
+                break;
+            case R.id.buttonHistory:
+                Intent intent = new Intent(MainActivity.this, history.class);
+                startActivity(intent);
+                break;
         }
+
     }
 
     public void pushPrevious(View view) {
