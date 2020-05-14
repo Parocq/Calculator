@@ -1,8 +1,10 @@
 package com.german.calculator;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -18,6 +20,7 @@ import java.math.BigDecimal;
 
 import java.math.MathContext;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,15 +38,41 @@ public class MainActivity extends AppCompatActivity {
     private TextView recentActions,answer;
 
     private static String beforeS = "";
-    private static ArrayList<String> history = new ArrayList<>();
+    private static List<Pair> history = new ArrayList<>();
 
-    public ArrayList<String> getHistory() {
+    public List<Pair> getHistory() {
         return history;
+    }
+
+//    @Override
+//    protected void onResume() {
+//        super.onPostResume();
+//
+//        Bundle bundle = getIntent().getExtras();
+//
+//        if (bundle.getString("result") != null){
+//            String result = bundle.getString("result");
+//            answer.setText(result);
+//        }
+//    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("exp",recentActions.getText().toString());
+        outState.putString("ans",answer.getText().toString());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        recentActions.setText(savedInstanceState.getString("exp",""));
+        answer.setText(savedInstanceState.getString("ans",""));
     }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -85,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         answer.setText(beforeS);
         };
 
+    @SuppressLint("SetTextI18n")
     public void onButtonClick(View v) {
         switch (v.getId()) {
             case R.id.button0:
@@ -164,14 +194,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.buttonEqual:
                 if (beforeS == ""){
-
                 }else try {
                     recentActions.setText(beforeS);
-                    history.add(beforeS);
 
                     BigDecimal calc = new Expression(beforeS, new MathContext(6)).eval();
                     answer.setText(calc.toString());
+
+                    history.add(new Pair(beforeS,calc.toString()));
                     beforeS = "";
+
                 } catch (Expression.ExpressionException e){
                     AlertDialog.Builder inputError = new AlertDialog.Builder(MainActivity.this);
                     inputError.setMessage("ExpressionException")

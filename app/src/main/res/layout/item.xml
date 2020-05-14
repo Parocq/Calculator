@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    android:id="@+id/itemOfList"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".history"
+    android:layout_height="50dp"
     android:orientation="vertical">
-
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="49dp">
 
         <TextView
-            android:text="@string/exp"
+            android:id="@+id/historyExpression"
             android:layout_width="0dp"
             android:layout_weight="4"
             android:textSize="20sp"
             android:gravity="center"
-            android:textColor="@color/colorBlack"
             android:layout_height="match_parent" />
 
         <LinearLayout
@@ -27,36 +25,20 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/historyAnswer"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:layout_height="match_parent"
             android:textSize="20sp"
             android:gravity="center"
-            android:textColor="@color/colorBlack"
-
-            android:text="@string/answ"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorBlack">
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </LinearLayout>
-
 
 </LinearLayout>
-

@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class history extends AppCompatActivity {
 
@@ -24,19 +25,12 @@ public class history extends AppCompatActivity {
         setContentView(R.layout.activity_history);
 
         MainActivity ma = new MainActivity();
+        List<Pair> history = ma.getHistory();
 
-        ArrayList<String> history = ma.getHistory();
-
-        ListView list = findViewById(R.id.list);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1, history);
-        list.setAdapter(adapter);
-
-//        RecyclerView RecyclerView = findViewById(R.id.RecyclerView);
-//        RecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//
-//        Adapter
-
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(history, this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
 }

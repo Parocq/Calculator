@@ -31,4 +31,6 @@
     <string name="history">History</string>
     <string name="log">log</string>
     <string name="e">e</string>
+    <string name="exp">Введенное выражение:</string>
+    <string name="answ">Ответ:</string>
 </resources>
